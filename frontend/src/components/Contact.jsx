@@ -45,6 +45,15 @@ const Contact = () => {
       const response = await axios.post(`${BACKEND_URL}/api/contact/`, dataToSend);
 
       if (response.status === 201) {
+        // Track conversion in Google Analytics
+        if (window.gtag) {
+          window.gtag('event', 'conversion', {
+            'send_to': 'AW-CONVERSION_ID/CONVERSION_LABEL',
+            'event_category': 'Contact',
+            'event_label': 'Contact Form Submission'
+          });
+        }
+        
         toast.success('¡Solicitud enviada exitosamente! Nos pondremos en contacto pronto.', {
           duration: 5000,
         });

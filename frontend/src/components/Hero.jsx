@@ -5,6 +5,13 @@ import { heroData } from '../data/mock';
 
 const Hero = () => {
   const scrollToContact = () => {
+    // Track CTA click
+    if (window.gtag) {
+      window.gtag('event', 'click', {
+        'event_category': 'CTA',
+        'event_label': 'Hero CTA - Solicitar Consultoría'
+      });
+    }
     document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
   };
 

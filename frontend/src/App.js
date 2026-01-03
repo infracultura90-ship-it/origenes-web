@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/Header";
@@ -12,8 +12,12 @@ import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { useGoogleAnalytics } from "@/utils/analytics";
 
 function App() {
+  // Initialize Google Analytics
+  useGoogleAnalytics();
+
   return (
     <div className="App">
       <Header />
