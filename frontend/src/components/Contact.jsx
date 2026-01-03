@@ -66,7 +66,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <div className="font-semibold mb-1">Email</div>
-                  <div className="text-green-100">contacto@origenes.com.co</div>
+                  <div className="text-green-100">infracultura90@gmail.com</div>
                 </div>
               </div>
 
@@ -76,7 +76,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <div className="font-semibold mb-1">Teléfono</div>
-                  <div className="text-green-100">+57 300 123 4567</div>
+                  <div className="text-green-100">+57 310 321 2780</div>
                 </div>
               </div>
 
@@ -85,8 +85,8 @@ const Contact = () => {
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <div className="font-semibold mb-1">Cobertura</div>
-                  <div className="text-green-100">23 Departamentos de Colombia</div>
+                  <div className="font-semibold mb-1">Dirección</div>
+                  <div className="text-green-100">Finca La Esperanza, Vda La Rambla<br/>San Antonio del Tequendama</div>
                 </div>
               </div>
             </div>
