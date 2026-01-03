@@ -5,6 +5,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import os
 from datetime import datetime
 import logging
+from services.email_service import email_service
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +37,13 @@ async def create_contact(contact_data: ContactCreate):
             )
         
         logger.info(f"New contact created: {contact.email} - {contact.name}")
+        
+        # Send email notification (non-blocking)
+        try:
+            email_service.send_contact_notification(contact.dict())
+        except Exception as e:
+            logger.error(f"Email notification failed: {str(e)}")
+            # Don't fail the request if email fails
         
         return contact
     
