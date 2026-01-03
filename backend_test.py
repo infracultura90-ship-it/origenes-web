@@ -197,9 +197,8 @@ class OrigenesAPITester:
         success, response = self.run_test(
             "Update Contact Status",
             "PATCH",
-            f"api/contact/{self.created_contact_id}/status",
-            200,
-            data={"new_status": "contacted"}
+            f"api/contact/{self.created_contact_id}/status?new_status=contacted",
+            200
         )
         return success
 
