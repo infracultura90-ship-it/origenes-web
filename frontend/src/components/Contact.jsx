@@ -6,10 +6,21 @@ import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { toast } from 'sonner';
-import { contactFormFields, culturesData } from '../data/mock';
+import { culturesData } from '../data/mock';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Contact = () => {
-  const [formData, setFormData] = useState(contactFormFields);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    department: '',
+    culture: '',
+    hectares: '',
+    message: ''
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const departments = [
@@ -19,19 +30,44 @@ const Contact = () => {
     'Tolima', 'Valle del Cauca', 'Otros'
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission (will be replaced with actual API call)
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
-      toast.success('¡Solicitud enviada exitosamente! Nos pondremos en contacto pronto.', {
+    try {
+      // Prepare data for backend
+      const dataToSend = {
+        ...formData,
+        hectares: formData.hectares ? parseInt(formData.hectares) : null
+      };
+
+      // Send to backend API
+      const response = await axios.post(`${BACKEND_URL}/api/contact/`, dataToSend);
+
+      if (response.status === 201) {
+        toast.success('¡Solicitud enviada exitosamente! Nos pondremos en contacto pronto.', {
+          duration: 5000,
+        });
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          department: '',
+          culture: '',
+          hectares: '',
+          message: ''
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast.error('Error al enviar la solicitud. Por favor intente nuevamente.', {
         duration: 5000,
       });
-      setFormData(contactFormFields);
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   const handleChange = (field, value) => {
