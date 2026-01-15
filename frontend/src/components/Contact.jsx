@@ -32,6 +32,15 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate required fields
+    if (!formData.department || !formData.culture) {
+      toast.error('Por favor completa todos los campos requeridos', {
+        duration: 3000,
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
 
     try {
@@ -190,7 +199,11 @@ const Contact = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="department" className="text-green-900">Departamento *</Label>
-                  <Select value={formData.department} onValueChange={(value) => handleChange('department', value)}>
+                  <Select 
+                    value={formData.department} 
+                    onValueChange={(value) => handleChange('department', value)}
+                    required
+                  >
                     <SelectTrigger id="department" className="mt-2 border-gray-300 focus:border-orange-500">
                       <SelectValue placeholder="Seleccionar" />
                     </SelectTrigger>
@@ -204,7 +217,11 @@ const Contact = () => {
 
                 <div>
                   <Label htmlFor="culture" className="text-green-900">Cultivo Principal *</Label>
-                  <Select value={formData.culture} onValueChange={(value) => handleChange('culture', value)}>
+                  <Select 
+                    value={formData.culture} 
+                    onValueChange={(value) => handleChange('culture', value)}
+                    required
+                  >
                     <SelectTrigger id="culture" className="mt-2 border-gray-300 focus:border-orange-500">
                       <SelectValue placeholder="Seleccionar" />
                     </SelectTrigger>
