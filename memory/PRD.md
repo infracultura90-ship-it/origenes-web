@@ -4,123 +4,46 @@
 ---
 
 ## 📋 Problema Original
-Crear una página web para ORÍGENES: NUTRICIÓN Y PRECISIÓN, empresa de consultoría avanzada para agricultura de transición y precisión. La empresa utiliza herramientas avanzadas de medición y evaluación de parámetros en tiempo real (SIG, pH, CE, CIC, NPK, temperaturas, índice de clorofila, fotogrametría, estación meteorológica, ORP, grados Brix, análisis de savia). Consultor con más de 17 años de experiencia en 23 departamentos de Colombia.
-
-## 🎯 Requisitos del Usuario
-- **Estilo**: Moderno enfocado en "NUTRICIÓN Y PRECISIÓN"
-- **Colores**: Verde agricultura, naranja/café, blanco
-- **Secciones**: Página completa con todas las secciones principales
-- **Objetivo**: La mejor página de consultoría agrícola de Colombia para atraer clientes
-
-## 🏗️ Arquitectura
-- **Frontend**: React + Tailwind CSS + Shadcn UI
-- **Backend**: FastAPI + MongoDB (próxima fase)
-- **Deployment**: Emergent Platform
+Crear una página web para ORÍGENES: NUTRICIÓN Y PRECISIÓN, empresa de consultoría avanzada para agricultura de transición y precisión.
 
 ---
 
-## ✅ Implementado (Fecha: 3 Enero 2025)
+## ✅ Implementado (Actualizado: 3 Enero 2025)
 
-### Frontend con Mock Data ✓
-1. **Header** - Navegación fija con logo y menú responsive
-2. **Hero Section** - Hero impactante con imagen de drone, CTAs, estadísticas clave
-3. **Services** - 4 servicios principales con iconos y descripciones
-4. **Technologies** - 11 tecnologías avanzadas categorizadas + galería de imágenes
-5. **Experience** - Sección de experiencia con 17+ años, logros
-6. **Magistral Formulation** - Diferenciador clave con imagen y beneficios
-7. **Cultures** - Cultivos especializados organizados por tipo
-8. **Testimonials** - 3 testimonios de clientes con ratings
-9. **FAQ** - Accordion con preguntas frecuentes
-10. **Contact Form** - Formulario completo (mock data - localStorage)
-11. **Footer** - Footer completo con información de contacto
+### Fase 1: Frontend Initial + Backend MongoDB ✓
+- 11 secciones completas funcionando
+- Backend MongoDB con endpoints de contacto
+- Email notifications con Gmail SMTP (credenciales pendientes)
+- Google Analytics integration (ID pendiente)
 
-### Características Técnicas
-- Smooth scroll navigation
-- Responsive design
-- Animaciones sutiles (fade-in, slide-up)
-- Toasts con Sonner
-- Colores personalizados: verde agricultura (#2d5016, #4a7c2c), naranja (#d97706, #ea580c)
-- Componentes Shadcn UI: Button, Input, Textarea, Label, Select, Accordion
+### Fase 2: Nuevas Características ✓
+1. **Módulo de Monitoreo Planet** - Mapa de vigor con API Key PLAK5ee68deaddf845b39e008238e1b94c54
+2. **Portafolio de Biofábricas** - Sección completa con capacidades, proyectos y fórmulas sinérgicas
+3. **Botón Solicitar Diagnóstico** - Modal con formulario de coordenadas geográficas
+4. **Información de contacto actualizada**:
+   - Email: infracultura90@gmail.com  
+   - Teléfono: +57 310 321 2780
+   - Dirección: Finca La Esperanza, Vda La Rambla, San Antonio del Tequendama
+
+### Backend API Endpoints
+- POST `/api/contact/` - Crear consulta (funciona para contacto y diagnóstico)
+- GET `/api/contact/` - Listar consultas
+- GET `/api/contact/{id}` - Consulta específica
+- PATCH `/api/contact/{id}/status` - Actualizar estado
 
 ---
 
-## 📊 Backlog Priorizado
+## 📊 Próximos Pasos
 
-### P0 - Backend Development (Próxima Fase)
-- [ ] Modelo MongoDB para consultas/contactos
-- [ ] API endpoint POST `/api/contact` para recibir formularios
-- [ ] API endpoint GET `/api/contact` para listar consultas
-- [ ] Integración frontend-backend (remover mock.js)
-- [ ] Validación de datos en backend
-- [ ] Testing completo backend + frontend
+### P0 - Configuración de Credenciales
+- [ ] Agregar Gmail App Password para notificaciones email
+- [ ] Agregar Google Analytics Measurement ID
+- [ ] Testing completo end-to-end
 
-### P1 - Mejoras Funcionales
-- [ ] Sistema de envío de emails (notificaciones a admin)
+### P1 - Mejoras
+- [ ] Integración real de Planet API para mapas satelitales
 - [ ] Panel administrativo para gestionar consultas
-- [ ] Galería de casos de éxito con imágenes reales
-- [ ] Blog o sección de noticias agrícolas
-- [ ] Integración con Google Maps para mostrar cobertura
-
-### P2 - Optimizaciones
-- [ ] SEO optimization
-- [ ] Google Analytics integration
-- [ ] Performance optimization (lazy loading)
-- [ ] Accesibilidad (WCAG compliance)
-- [ ] Multilingual support (si es necesario)
-
----
-
-## 🎬 Próximos Pasos
-1. Implementar backend con MongoDB
-2. Crear API contracts para formulario de contacto
-3. Integrar frontend con backend
-4. Testing completo con testing_agent_v3
-5. Deploy a producción
-
----
-
-## 📝 API Contracts (Para Backend)
-
-### POST /api/contact
-**Request Body:**
-```json
-{
-  "name": "string",
-  "email": "string",
-  "phone": "string",
-  "department": "string",
-  "culture": "string",
-  "hectares": "number (optional)",
-  "message": "string"
-}
-```
-
-**Response:**
-```json
-{
-  "id": "string",
-  "status": "received",
-  "timestamp": "ISO 8601 datetime"
-}
-```
-
-### GET /api/contact
-**Response:**
-```json
-[
-  {
-    "id": "string",
-    "name": "string",
-    "email": "string",
-    "phone": "string",
-    "department": "string",
-    "culture": "string",
-    "hectares": "number",
-    "message": "string",
-    "created_at": "ISO 8601 datetime"
-  }
-]
-```
+- [ ] Email templates profesionales
 
 ---
 

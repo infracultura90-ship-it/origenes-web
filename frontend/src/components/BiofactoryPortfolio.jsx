@@ -1,5 +1,5 @@
 import React from 'react';
-import { Factory, Flask, Sprout, Microscope, Leaf, Beaker } from 'lucide-react';
+import { Factory, FlaskConical, Sprout, Microscope, Leaf, Beaker } from 'lucide-react';
 import { Button } from './ui/button';
 
 const BiofactoryPortfolio = () => {
@@ -10,7 +10,7 @@ const BiofactoryPortfolio = () => {
       description: 'Montaje completo de instalaciones para producción de insumos biológicos adaptados a tu escala y necesidades'
     },
     {
-      icon: Flask,
+      icon: FlaskConical,
       title: 'Fórmulas Sinérgicas',
       description: 'Desarrollo de mezclas nutricionales que maximizan la eficiencia por interacción de componentes'
     },
