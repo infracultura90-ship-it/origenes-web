@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
+import DiagnosticForm from './DiagnosticForm';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,8 +44,18 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
+          {/* CTA Buttons */}
+          <div className="hidden lg:flex items-center gap-3">
+            <DiagnosticForm 
+              trigger={
+                <Button
+                  variant="outline"
+                  className="border-2 border-orange-600 text-orange-600 hover:bg-orange-50"
+                >
+                  Solicitar Diagnóstico
+                </Button>
+              }
+            />
             <Button
               onClick={() => scrollToSection('contacto')}
               className="bg-orange-600 hover:bg-orange-700 text-white px-6 py-5 font-semibold shadow-md hover:shadow-lg transition-all duration-300"
@@ -75,9 +86,19 @@ const Header = () => {
                   {item.label}
                 </button>
               ))}
+              <DiagnosticForm 
+                trigger={
+                  <Button
+                    variant="outline"
+                    className="border-2 border-orange-600 text-orange-600 w-full"
+                  >
+                    Solicitar Diagnóstico
+                  </Button>
+                }
+              />
               <Button
                 onClick={() => scrollToSection('contacto')}
-                className="bg-orange-600 hover:bg-orange-700 text-white w-full mt-2"
+                className="bg-orange-600 hover:bg-orange-700 text-white w-full"
               >
                 Contáctanos
               </Button>
