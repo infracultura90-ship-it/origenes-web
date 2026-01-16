@@ -40,6 +40,17 @@ const Hero = () => {
             <span className="text-orange-100 text-sm font-medium">Líderes en Agricultura de Precisión</span>
           </div>
 
+          {/* Logo */}
+          <div className="flex justify-center mb-6 animate-fade-in">
+            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20">
+              <img 
+                src="/logo-origenes.jpg" 
+                alt="ORÍGENES Logo" 
+                className="h-32 w-32 object-contain"
+              />
+            </div>
+          </div>
+
           {/* Main Title */}
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight animate-slide-up">
             {heroData.title}

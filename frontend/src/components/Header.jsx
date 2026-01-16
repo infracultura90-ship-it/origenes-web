@@ -24,7 +24,12 @@ const Header = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <img 
+              src="/logo-origenes.jpg" 
+              alt="ORÍGENES Logo" 
+              className="h-16 w-16 object-contain"
+            />
             <div className="flex flex-col">
               <span className="text-2xl font-bold text-green-900">ORÍGENES</span>
               <span className="text-sm text-orange-600 font-semibold -mt-1">NUTRICIÓN Y PRECISIÓN</span>

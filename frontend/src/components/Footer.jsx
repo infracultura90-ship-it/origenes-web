@@ -10,9 +10,16 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Column 1 - About */}
           <div>
-            <div className="flex flex-col mb-4">
-              <span className="text-2xl font-bold">ORÍGENES</span>
-              <span className="text-orange-400 font-semibold">NUTRICIÓN Y PRECISIÓN</span>
+            <div className="flex items-center gap-3 mb-4">
+              <img 
+                src="/logo-origenes.jpg" 
+                alt="ORÍGENES Logo" 
+                className="h-16 w-16 object-contain bg-white rounded-lg p-1"
+              />
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold">ORÍGENES</span>
+                <span className="text-orange-400 font-semibold">NUTRICIÓN Y PRECISIÓN</span>
+              </div>
             </div>
             <p className="text-green-100 text-sm leading-relaxed">
               Transformando la agricultura colombiana con tecnología de precisión y soluciones personalizadas.
