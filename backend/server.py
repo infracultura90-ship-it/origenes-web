@@ -12,6 +12,8 @@ from datetime import datetime, timezone
 
 # Import contact routes
 from routes.contact import router as contact_router
+# Import roboflow routes
+from routes.roboflow import router as roboflow_router
 
 
 ROOT_DIR = Path(__file__).parent
@@ -74,6 +76,9 @@ app.include_router(api_router)
 
 # Include contact routes
 app.include_router(contact_router)
+
+# Include roboflow routes
+app.include_router(roboflow_router)
 
 app.add_middleware(
     CORSMiddleware,

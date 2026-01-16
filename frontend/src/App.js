@@ -8,6 +8,7 @@ import Technologies from "@/components/Technologies";
 import Experience from "@/components/Experience";
 import MagistralFormulation from "@/components/MagistralFormulation";
 import PlanetMonitoring from "@/components/PlanetMonitoring";
+import RoboflowAnalyzer from "@/components/RoboflowAnalyzer";
 import BiofactoryPortfolio from "@/components/BiofactoryPortfolio";
 import Cultures from "@/components/Cultures";
 import Testimonials from "@/components/Testimonials";
@@ -33,6 +34,7 @@ function App() {
         <div id="tecnologias">
           <Technologies />
         </div>
+        <RoboflowAnalyzer />
         <PlanetMonitoring />
         <BiofactoryPortfolio />
         <div id="experiencia">
