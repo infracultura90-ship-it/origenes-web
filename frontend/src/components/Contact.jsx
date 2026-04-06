@@ -120,7 +120,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <div className="font-semibold mb-1">Email</div>
-                  <div className="text-green-100">infracultura90@gmail.com</div>
+                  <div className="text-green-100">gerencia@origeneskhachi.org</div>
                 </div>
               </div>
 
@@ -130,7 +130,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <div className="font-semibold mb-1">Teléfono</div>
-                  <div className="text-green-100">+57 310 321 2780</div>
+                  <div className="text-green-100">+57 300 558 2757</div>
                 </div>
               </div>
 

@@ -11,7 +11,7 @@ class EmailService:
     def __init__(self):
         self.smtp_host = "smtp.gmail.com"
         self.smtp_port = 587
-        self.sender_email = os.environ.get('GMAIL_USER', 'infracultura90@gmail.com')
+        self.sender_email = os.environ.get('GMAIL_USER', 'gerencia@origeneskhachi.org')
         self.sender_password = os.environ.get('GMAIL_APP_PASSWORD', '')
         
     def send_contact_notification(self, contact_data):

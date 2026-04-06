@@ -5,7 +5,7 @@
 ### Paso 1: Obtener Contraseña de Aplicación de Gmail
 
 1. Ve a: https://myaccount.google.com/apppasswords
-2. Inicia sesión con tu cuenta: **infracultura90@gmail.com**
+2. Inicia sesión con tu cuenta: **gerencia@origeneskhachi.org**
 3. Si te pide verificación en dos pasos, actívala primero en: https://myaccount.google.com/security
 4. Crea una nueva contraseña de aplicación:
    - Selecciona "Correo" como aplicación

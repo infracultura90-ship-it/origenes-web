@@ -133,7 +133,7 @@ const DiagnosticForm = ({ trigger }) => {
                 required
                 value={formData.phone}
                 onChange={(e) => handleChange('phone', e.target.value)}
-                placeholder="310 321 2780"
+                placeholder="300 558 2757"
               />
             </div>
           </div>

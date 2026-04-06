@@ -21,8 +21,8 @@ Crear una página web para ORÍGENES: NUTRICIÓN Y PRECISIÓN, empresa de consul
 2. **Portafolio de Biofábricas** - Sección completa con capacidades, proyectos y fórmulas sinérgicas
 3. **Botón Solicitar Diagnóstico** - Modal con formulario de coordenadas geográficas
 4. **Información de contacto actualizada**:
-   - Email: infracultura90@gmail.com  
-   - Teléfono: +57 310 321 2780
+   - Email: gerencia@origeneskhachi.org  
+   - Teléfono: +57 300 558 2757
    - Dirección: Finca La Esperanza, Vda La Rambla, San Antonio del Tequendama
 
 ### Backend API Endpoints
