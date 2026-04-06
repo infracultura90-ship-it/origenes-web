@@ -5,7 +5,7 @@ from datetime import datetime
 import uuid
 
 class OrigenesAPITester:
-    def __init__(self, base_url="https://farm-analytics-9.preview.emergentagent.com"):
+    def __init__(self, base_url="https://satellite-farm-watch.preview.emergentagent.com"):
         self.base_url = base_url
         self.tests_run = 0
         self.tests_passed = 0

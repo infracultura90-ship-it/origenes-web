@@ -30,7 +30,7 @@ Estás en el paso correcto. Ahora:
 
 1. En https://analytics.google.com/ haz clic en el botón azul **"Web"**
 2. Completa el formulario:
-   - **URL del sitio web**: https://farm-analytics-9.preview.emergentagent.com (o tu dominio)
+   - **URL del sitio web**: https://satellite-farm-watch.preview.emergentagent.com (o tu dominio)
    - **Nombre del flujo**: Sitio Web ORÍGENES
 3. Haz clic en "Crear flujo"
 4. Copia el **ID de medición** que aparece (formato: **G-XXXXXXXXXX**)
