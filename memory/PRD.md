@@ -22,7 +22,7 @@ Crear una página web para ORÍGENES: NUTRICIÓN Y PRECISIÓN, empresa de consul
 3. **Botón Solicitar Diagnóstico** - Modal con formulario de coordenadas geográficas
 4. **Información de contacto actualizada**:
    - Email: gerencia@origeneskhachi.org  
-   - Teléfono: +57 300 558 2757
+   - Teléfono: +57 300 558 2757 / +57 310 321 2780
    - Dirección: Finca La Esperanza, Vda La Rambla, San Antonio del Tequendama
 
 ### Backend API Endpoints
