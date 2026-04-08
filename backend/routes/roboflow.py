@@ -9,10 +9,10 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/roboflow", tags=["roboflow"])
 
-# Roboflow configuration
-ROBOFLOW_API_KEY = "NDLLuR8nj4xCRXJKjvCL"
-ROBOFLOW_MODEL_ID = "origenes/4"
-ROBOFLOW_API_URL = "https://detect.roboflow.com"
+# Roboflow configuration from environment
+ROBOFLOW_API_KEY = os.environ.get('ROBOFLOW_API_KEY', '')
+ROBOFLOW_MODEL_ID = os.environ.get('ROBOFLOW_MODEL_ID', 'origenes/4')
+ROBOFLOW_API_URL = os.environ.get('ROBOFLOW_API_URL', 'https://detect.roboflow.com')
 
 
 @router.post("/analyze")

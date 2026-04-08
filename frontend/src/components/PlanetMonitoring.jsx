@@ -10,7 +10,7 @@ const PlanetMonitoring = () => {
   const [loading, setLoading] = useState(false);
   const [vigorMapUrl, setVigorMapUrl] = useState(null);
 
-  const PLANET_API_KEY = 'PLAK5ee68deaddf845b39e008238e1b94c54';
+  const PLANET_API_KEY = process.env.REACT_APP_PLANET_API_KEY || '';
 
   const handleLoadMap = async () => {
     if (!coordinates.lat || !coordinates.lng) {
