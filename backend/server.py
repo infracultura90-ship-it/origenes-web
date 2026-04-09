@@ -4,11 +4,13 @@ from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
+import asyncio
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List
 import uuid
 from datetime import datetime, timezone
+from contextlib import asynccontextmanager
 
 # Import contact routes
 from routes.contact import router as contact_router
@@ -24,8 +26,39 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-# Create the main app without a prefix
-app = FastAPI(title="ORÍGENES API", description="API para ORÍGENES: Nutrición y Precisión")
+keep_alive_task = None
+
+async def keep_alive_loop():
+    """Background task that pings MongoDB every 4 minutes to prevent container sleep."""
+    logger = logging.getLogger("keep-alive")
+    while True:
+        try:
+            await asyncio.sleep(240)
+            await db.command("ping")
+            logger.info("Keep-alive ping OK")
+        except asyncio.CancelledError:
+            break
+        except Exception as e:
+            logger.warning(f"Keep-alive ping failed: {e}")
+
+@asynccontextmanager
+async def lifespan(app):
+    global keep_alive_task
+    keep_alive_task = asyncio.create_task(keep_alive_loop())
+    yield
+    keep_alive_task.cancel()
+    try:
+        await keep_alive_task
+    except asyncio.CancelledError:
+        pass
+    client.close()
+
+# Create the main app with lifespan
+app = FastAPI(
+    title="ORÍGENES API",
+    description="API para ORÍGENES: Nutrición y Precisión",
+    lifespan=lifespan
+)
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
@@ -46,6 +79,19 @@ class StatusCheckCreate(BaseModel):
 @api_router.get("/")
 async def root():
     return {"message": "ORÍGENES API - Nutrición y Precisión", "status": "active"}
+
+@api_router.get("/health")
+async def health_check():
+    try:
+        await db.command("ping")
+        db_status = "connected"
+    except Exception:
+        db_status = "disconnected"
+    return {
+        "status": "active",
+        "database": db_status,
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
@@ -94,7 +140,3 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    client.close()
