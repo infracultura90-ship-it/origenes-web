@@ -17,6 +17,7 @@ import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import AdminPage from "@/components/AdminPage";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { useGoogleAnalytics } from "@/utils/analytics";
 
 function LandingPage() {
@@ -50,6 +51,7 @@ function LandingPage() {
         <Contact />
       </main>
       <Footer />
+      <WhatsAppButton />
       <Toaster position="top-right" />
     </div>
   );

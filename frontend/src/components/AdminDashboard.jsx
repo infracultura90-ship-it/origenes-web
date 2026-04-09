@@ -4,7 +4,7 @@ import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import {
   LogOut, Search, Users, Clock, CheckCircle, XCircle,
-  RefreshCw, Loader2, Trash2, ArrowLeft, BarChart3
+  RefreshCw, Loader2, Trash2, ArrowLeft, BarChart3, Download
 } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
@@ -79,6 +79,28 @@ const AdminDashboard = ({ user, onLogout }) => {
       fetchData();
     } catch {
       toast.error('Error al eliminar');
+    }
+  };
+
+  const handleExportCSV = async () => {
+    try {
+      const token = localStorage.getItem('admin_token');
+      const params = new URLSearchParams();
+      if (statusFilter !== 'all') params.set('status_filter', statusFilter);
+      const response = await fetch(`${BACKEND_URL}/api/admin/contacts/export/csv?${params}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!response.ok) throw new Error('Export failed');
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `origenes_consultas_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.success('CSV exportado correctamente');
+    } catch {
+      toast.error('Error al exportar CSV');
     }
   };
 
@@ -160,6 +182,10 @@ const AdminDashboard = ({ user, onLogout }) => {
             </Select>
             <Button variant="outline" size="icon" onClick={fetchData} data-testid="admin-refresh-btn">
               <RefreshCw className="w-4 h-4" />
+            </Button>
+            <Button variant="outline" onClick={handleExportCSV} data-testid="admin-export-csv-btn" className="gap-2">
+              <Download className="w-4 h-4" />
+              <span className="hidden sm:inline">Exportar CSV</span>
             </Button>
           </div>
         </div>

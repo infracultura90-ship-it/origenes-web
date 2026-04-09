@@ -1,7 +1,11 @@
 from fastapi import APIRouter, HTTPException, Depends, Query
+from fastapi.responses import StreamingResponse
 from routes.auth import get_current_user
 from motor.motor_asyncio import AsyncIOMotorClient
+from services.email_service import email_service
 import os
+import io
+import csv
 import logging
 from datetime import datetime, timezone
 
@@ -47,7 +51,7 @@ async def update_status(
     new_status: str = Query(...),
     user: dict = Depends(get_current_user),
 ):
-    """Update contact status."""
+    """Update contact status and send notification email."""
     valid = ["pending", "contacted", "closed"]
     if new_status not in valid:
         raise HTTPException(status_code=400, detail=f"Estado inválido. Debe ser: {', '.join(valid)}")
@@ -58,6 +62,15 @@ async def update_status(
     )
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="Consulta no encontrada")
+
+    if new_status in ("contacted", "closed"):
+        contact = await contacts_collection.find_one({"id": contact_id}, {"_id": 0})
+        if contact:
+            try:
+                email_service.send_status_update(contact, new_status)
+            except Exception as e:
+                logger.warning(f"Status email failed: {e}")
+
     return {"message": "Estado actualizado", "status": new_status}
 
 
@@ -90,3 +103,44 @@ async def get_stats(user: dict = Depends(get_current_user)):
         "closed": closed,
         "recent": recent,
     }
+
+
+@router.get("/contacts/export/csv")
+async def export_contacts_csv(
+    status_filter: str = Query(None),
+    user: dict = Depends(get_current_user),
+):
+    """Export contacts as CSV file."""
+    query = {}
+    if status_filter and status_filter != "all":
+        query["status"] = status_filter
+
+    contacts = await contacts_collection.find(query, {"_id": 0}).sort("created_at", -1).to_list(length=10000)
+
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["ID", "Nombre", "Email", "Teléfono", "Departamento", "Cultivo", "Hectáreas", "Mensaje", "Estado", "Fecha"])
+
+    for c in contacts:
+        writer.writerow([
+            c.get("id", ""),
+            c.get("name", ""),
+            c.get("email", ""),
+            c.get("phone", ""),
+            c.get("department", ""),
+            c.get("culture", ""),
+            c.get("hectares", ""),
+            c.get("message", ""),
+            c.get("status", ""),
+            str(c.get("created_at", ""))[:19],
+        ])
+
+    output.seek(0)
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M")
+    filename = f"origenes_consultas_{timestamp}.csv"
+
+    return StreamingResponse(
+        iter([output.getvalue()]),
+        media_type="text/csv",
+        headers={"Content-Disposition": f"attachment; filename={filename}"},
+    )
