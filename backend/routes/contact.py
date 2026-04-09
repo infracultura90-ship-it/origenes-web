@@ -24,26 +24,18 @@ async def create_contact(contact_data: ContactCreate):
     Create a new contact inquiry from the website form.
     """
     try:
-        # Create contact object with generated fields
-        contact = Contact(**contact_data.dict())
+        contact = Contact(**contact_data.model_dump())
         
-        # Insert into MongoDB
-        result = await contacts_collection.insert_one(contact.dict())
-        
-        if not result.inserted_id:
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="Error al guardar la consulta"
-            )
+        doc = contact.model_dump()
+        doc['created_at'] = doc['created_at'].isoformat()
+        await contacts_collection.insert_one(doc)
         
         logger.info(f"New contact created: {contact.email} - {contact.name}")
         
-        # Send email notification (non-blocking)
         try:
-            email_service.send_contact_notification(contact.dict())
+            email_service.send_contact_notification(doc)
         except Exception as e:
             logger.error(f"Email notification failed: {str(e)}")
-            # Don't fail the request if email fails
         
         return contact
     
@@ -69,7 +61,7 @@ async def get_contacts(
         if status_filter:
             query["status"] = status_filter
         
-        contacts = await contacts_collection.find(query).sort("created_at", -1).skip(skip).limit(limit).to_list(length=limit)
+        contacts = await contacts_collection.find(query, {"_id": 0}).sort("created_at", -1).skip(skip).limit(limit).to_list(length=limit)
         
         return [Contact(**contact) for contact in contacts]
     
@@ -87,7 +79,7 @@ async def get_contact(contact_id: str):
     Get a specific contact by ID.
     """
     try:
-        contact = await contacts_collection.find_one({"id": contact_id})
+        contact = await contacts_collection.find_one({"id": contact_id}, {"_id": 0})
         
         if not contact:
             raise HTTPException(

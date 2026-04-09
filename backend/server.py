@@ -12,14 +12,14 @@ import uuid
 from datetime import datetime, timezone
 from contextlib import asynccontextmanager
 
-# Import contact routes
-from routes.contact import router as contact_router
-# Import roboflow routes
-from routes.roboflow import router as roboflow_router
-
-
+# Load env BEFORE importing routes so they can read env vars at module level
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
+
+# Import routes after env is loaded
+from routes.contact import router as contact_router
+from routes.roboflow import router as roboflow_router
+from routes.planet import router as planet_router
 
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
@@ -125,6 +125,9 @@ app.include_router(contact_router)
 
 # Include roboflow routes
 app.include_router(roboflow_router)
+
+# Include planet routes
+app.include_router(planet_router)
 
 app.add_middleware(
     CORSMiddleware,
