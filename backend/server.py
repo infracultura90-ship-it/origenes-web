@@ -20,6 +20,8 @@ load_dotenv(ROOT_DIR / '.env')
 from routes.contact import router as contact_router
 from routes.roboflow import router as roboflow_router
 from routes.planet import router as planet_router
+from routes.auth import router as auth_router, seed_admin
+from routes.admin import router as admin_router
 
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
@@ -44,6 +46,7 @@ async def keep_alive_loop():
 @asynccontextmanager
 async def lifespan(app):
     global keep_alive_task
+    await seed_admin()
     keep_alive_task = asyncio.create_task(keep_alive_loop())
     yield
     keep_alive_task.cancel()
@@ -128,6 +131,12 @@ app.include_router(roboflow_router)
 
 # Include planet routes
 app.include_router(planet_router)
+
+# Include auth routes
+app.include_router(auth_router)
+
+# Include admin routes
+app.include_router(admin_router)
 
 app.add_middleware(
     CORSMiddleware,

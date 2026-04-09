@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/Header";
@@ -15,10 +16,10 @@ import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import AdminPage from "@/components/AdminPage";
 import { useGoogleAnalytics } from "@/utils/analytics";
 
-function App() {
-  // Initialize Google Analytics
+function LandingPage() {
   useGoogleAnalytics();
 
   return (
@@ -51,6 +52,17 @@ function App() {
       <Footer />
       <Toaster position="top-right" />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
