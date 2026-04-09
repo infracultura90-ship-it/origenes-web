@@ -14,34 +14,53 @@ Crear una página web para ORÍGENES: NUTRICIÓN Y PRECISIÓN, empresa de consul
 - 13 secciones: Hero, Services, Technologies, Experience, Cultures, Biofactory, Roboflow Analyzer, Planet Monitoring, Diagnostic Form, Contact, Footer, etc.
 - Backend FastAPI + MongoDB con endpoints de contacto
 - Email notifications con Gmail SMTP (credenciales pendientes)
-- Google Analytics integration (ID pendiente)
+- Google Analytics integration (ID pendiente - infraestructura lista en variable de entorno)
 
 ### Fase 2: Integraciones Reales
-1. **Roboflow AI** - Diagnóstico de cultivos por imagen (API Key: NDLLuR8nj4xCRXJKjvCL, Modelo: origenes/4)
+1. **Roboflow AI** - Diagnóstico de cultivos por imagen (modelo origenes/4)
 2. **Planet Labs** - Búsqueda de escenas satelitales PlanetScope (3m/px), thumbnails reales, mapa Leaflet interactivo
 3. **Logo corporativo** integrado
 4. **Información de contacto**:
    - Email: gerencia@origeneskhachi.org
-   - Teléfono: +57 300 558 2757 / +57 310 321 2780
+   - Teléfonos: +57 300 558 2757 / +57 310 321 2780
    - Dirección: Finca La Esperanza, Vda La Rambla, San Antonio del Tequendama
 
 ### Fase 3: Correcciones (Abril 2026)
-- Fix formulario de contacto: department/culture ahora opcionales, sin error 422
-- Integración real Planet API (antes era mock): Data API search + thumbnail proxy
-- Variables hardcodeadas movidas a .env (Roboflow, Planet)
+- Fix formulario de contacto: department/culture opcionales
+- Integración real Planet API (Data API search + thumbnail proxy)
+- Variables hardcodeadas movidas a .env
 - Endpoint /api/health + keep-alive background task
-- Orden de load_dotenv corregido en server.py
+- Fix orden load_dotenv en server.py
+
+### Fase 4: Panel Administrativo (Abril 2026)
+- **Autenticación JWT** con bcrypt para hash de contraseñas
+- **Login** exclusivo para gerencia@origeneskhachi.org
+- **Dashboard** con estadísticas (total, pendientes, contactados, cerrados)
+- **Tabla de consultas** con búsqueda, filtro por estado, cambio de estado inline
+- **Eliminación** de consultas
+- **Protección brute force** (5 intentos = 15 min lockout)
+- Ruta: `/admin`
 
 ### API Endpoints
+**Públicos:**
 - POST `/api/contact/` - Crear consulta
 - GET `/api/contact/` - Listar consultas
-- GET `/api/contact/{id}` - Consulta específica
-- PATCH `/api/contact/{id}/status` - Actualizar estado
 - POST `/api/roboflow/analyze` - Análisis IA de imágenes
-- GET `/api/planet/search?lat=X&lng=X` - Buscar escenas satelitales
-- GET `/api/planet/thumbnail/{type}/{id}` - Proxy thumbnails Planet
-- GET `/api/planet/health` - Estado conexión Planet
-- GET `/api/health` - Health check general
+- GET `/api/planet/search` - Buscar escenas satelitales
+- GET `/api/planet/thumbnail/{type}/{id}` - Proxy thumbnails
+- GET `/api/health` - Health check
+
+**Autenticación:**
+- POST `/api/auth/login` - Login admin
+- GET `/api/auth/me` - Info usuario actual
+- POST `/api/auth/logout` - Cerrar sesión
+- POST `/api/auth/refresh` - Refrescar token
+
+**Admin (protegidos):**
+- GET `/api/admin/stats` - Estadísticas dashboard
+- GET `/api/admin/contacts` - Lista consultas con filtros
+- PATCH `/api/admin/contacts/{id}/status` - Cambiar estado
+- DELETE `/api/admin/contacts/{id}` - Eliminar consulta
 
 ---
 
@@ -49,12 +68,12 @@ Crear una página web para ORÍGENES: NUTRICIÓN Y PRECISIÓN, empresa de consul
 
 ### P0 - Credenciales del Usuario
 - [ ] Gmail App Password para notificaciones email
-- [ ] Google Analytics Measurement ID (G-XXXXXXXXXX)
+- [ ] Google Analytics Measurement ID (G-XXXXXXXXXX) - pendiente validación Google Enterprise 48h
 
 ### P1 - Mejoras Futuras
-- [ ] Panel administrativo para gestionar consultas
 - [ ] Email templates profesionales
-- [ ] Testing E2E completo con credenciales SMTP/GA
+- [ ] Exportar consultas a CSV desde panel admin
+- [ ] Dashboard con gráficos de tendencias
 
 ---
 
